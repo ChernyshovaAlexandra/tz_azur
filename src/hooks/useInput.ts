@@ -3,27 +3,31 @@ import { useState } from 'react';
 interface UseInputOptions {
   initialValue?: string;
   validationRules?: any;
+  code?: string;
 }
 
 interface UseInputResult {
   value: string;
   error: string;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>, code?: string) => void;
   reset: () => void;
   isValid: boolean;
 }
 
 const useInput = (options: UseInputOptions = {}): UseInputResult => {
-  const { initialValue = '', validationRules } = options;
+  const { initialValue = '', validationRules, code } = options;
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(true);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, code?: string) => {
     const { value, name } = event.target;
     setValue(value);
-    validateValue(value);
-    // Здесь вы можете сохранить значение в состоянии формы или передать его в родительский компонент
+    if (name !== 'phone') {
+      validateValue(value);
+    } else {
+      validateValue(code + value)
+    }
   };
 
   const validateValue = (value: string) => {

@@ -11,12 +11,6 @@ export const nameValidationRules = (value: string): string | null => {
     return null;
 };
 
-export const countryOptions = [
-    { value: 'US', label: '+1' },
-    { value: 'UK', label: '+44' },
-    { value: 'CA', label: '+1' },
-    // Добавьте другие коды стран по необходимости
-];
 export const dobValidationRules = (value: string): string | null => {
     const currentDate = new Date();
     const selectedDate = new Date(value);
@@ -47,8 +41,9 @@ export const emailValidationRules = (value: string): string | null => {
 
 
 export const phoneValidationRules = (value: string): string | null => {
-    if (!/^\d{8}$/.test(value)) {
-        return "Enter a valid phone number";
+    const regex = /^\+\d{3}\d{8}$/;
+    if (!regex.test(value)) {
+      return "Enter a valid phone number";
     }
     return null;
 };

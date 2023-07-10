@@ -30,7 +30,6 @@ const App: React.FC = () => {
     <div className="container">
       <div className='form_content'>
         <Navigation page={page} setPage={setPage} />
-
         {page === 0 ?
           <> <h1>Get your questions answered by our consultants from the comfort of your home</h1>
             <Form setPage={setPage} formValues={formValues} setFormValues={setFormValues} /></>

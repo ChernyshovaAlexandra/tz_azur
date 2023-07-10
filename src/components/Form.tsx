@@ -23,7 +23,6 @@ const FirstScreen: React.FC<FirstScreenProps> = ({ setPage, setFormValues, formV
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Form Data:', formValues);
         setPage(3)
     };
 
@@ -31,19 +30,32 @@ const FirstScreen: React.FC<FirstScreenProps> = ({ setPage, setFormValues, formV
         validateForm();
     }, [formValues]);
 
+
+
+
+    const isValidInput = (value: any, validationRules: (value: any) => string | null) => {
+        return validationRules(value)
+    };
+
     const validateForm = () => {
         let valid = true;
         formData.forEach((item) => {
             if (item.input.required) {
-                const { name } = item.input;
+                const { name, validationRules } = item.input;
+                if (validationRules) {
+                    valid = !isValidInput(formValues[name], item.input.validationRules)
+                }
                 if (!formValues[name]) {
                     valid = false;
                 }
+
             }
         });
 
         setFormValid(valid);
     };
+
+
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
@@ -95,6 +107,7 @@ const FirstScreen: React.FC<FirstScreenProps> = ({ setPage, setFormValues, formV
                     <Input
                         type={input.type}
                         name={input.name}
+                        code={selectedCode}
                         validationRules={input.validationRules}
                         onChange={(e) => {
                             setFormValues((prevValues: FormValues) => ({
@@ -103,6 +116,7 @@ const FirstScreen: React.FC<FirstScreenProps> = ({ setPage, setFormValues, formV
                             }));
                         }}
                     />
+                    
                 </div>
             );
         }

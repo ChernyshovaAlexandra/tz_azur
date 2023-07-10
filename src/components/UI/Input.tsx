@@ -14,6 +14,7 @@ export interface InputProps {
   dateFormat?: any;
   countryCodes?: any;
   options?: any;
+  code?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -27,7 +28,8 @@ const Input: React.FC<InputProps> = ({
   required,
   countryCodes,
   options,
-  onChange,
+  code,
+  onChange
 }) => {
   const { value, handleChange, error } = useInput({
     initialValue: '',
@@ -35,7 +37,7 @@ const Input: React.FC<InputProps> = ({
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    handleChange(event);
+    handleChange(event, code);
     if (onChange) {
       onChange(event);
     }
