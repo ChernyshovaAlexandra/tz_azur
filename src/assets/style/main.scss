@@ -1,0 +1,291 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+input,
+button {
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+
+$grayBg: #e0e0e0;
+$buttonColor: #f2f2f2;
+$selectColor: #acacac;
+$placeHolderColor: #acacac;
+$borderColor: #e0e0e0;
+$textColor: rgba(172, 172, 172, 1);
+$inputTextColor: #1b1b1b;
+$labelTextColor: #424242;
+$paginationActive: #7c55c5;
+
+#root {
+    background: $grayBg;
+    padding: 50px;
+    min-height: 100vh;
+}
+h1 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.3rem;
+}
+nav {
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 1.5rem;
+    .btn_back {
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 1.3rem;
+        }
+    }
+    .pagination {
+        width: 100%;
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        .pageCounter {
+            width: 100%;
+            height: 7px;
+            border-radius: 10px;
+            background: $grayBg;
+            &.active {
+                background: $paginationActive;
+            }
+        }
+    }
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 15px;
+}
+.form_content {
+    padding: 24px 40px 34px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    display: block;
+    font-family: "Open Sans", sans-serif;
+    .num_grid {
+        grid-template-columns: 7.5rem auto;
+        gap: 0 1rem;
+        .errorMessage {
+            grid-area: 2 / 2;
+        }
+    }
+    .input_elem {
+        margin-top: 1rem;
+        flex: calc(100% / 2 - 15px);
+        select,
+        option {
+            cursor: pointer;
+        }
+        &.full {
+            width: 100%;
+            flex: 100%;
+        }
+        &.select {
+            display: block;
+            margin: 0;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid $borderColor;
+            position: relative;
+            min-width: 7.5rem;
+            cursor: pointer;
+            padding-right: 1rem;
+
+            &::after {
+                content: "";
+                position: absolute;
+                right: 8px;
+                height: 100%;
+                background: url(../images/arr_down.svg) no-repeat center;
+                background-size: contain;
+                z-index: 100;
+                width: 13px;
+                height: 2.5rem;
+            }
+        }
+        .select_code {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            display: grid;
+            place-items: center;
+
+            li {
+                list-style: none;
+                color: $selectColor;
+                display: flex;
+                background: white;
+                width: 100%;
+                padding: 10px 25px 10px 10px;
+                gap: 10px;
+                grid-template-columns: 1rem auto;
+                &.active {
+                    order: 1;
+                }
+                order: 2;
+                &:not(:first-child) {
+                    border-right: 1px solid $borderColor;
+                    border-left: 1px solid $borderColor;
+                    border-bottom: 1px solid $borderColor;
+                    &:hover {
+                        background: $grayBg;
+                    }
+                }
+                &.hidden {
+                    display: none;
+                }
+                &:not(:last-child) {
+                    border-bottom: 1px solid transparent;
+                }
+            }
+        }
+        .react-datepicker-wrapper {
+            width: 100%;
+            input {
+                cursor: pointer;
+            }
+        }
+        label {
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.35rem;
+            color: $labelTextColor;
+        }
+        input:not([type="radio"]),
+        select {
+            outline: none;
+            border: none;
+            padding: 12px 17px;
+            width: 100%;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid $borderColor;
+            &::placeholder {
+                color: $placeHolderColor;
+                opacity: 1;
+            }
+            &.invalidInput {
+                border-color: #ff0000;
+                color: red;
+            }
+            &:focus:not(.invalidInput) {
+                border-color: $borderColor;
+            }
+        }
+        input[type="radio"] {
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+
+            & + label {
+                display: block;
+                margin: 0.5rem 0;
+                cursor: pointer;
+                position: relative;
+                padding-left: 1.5rem;
+                display: grid;
+                place-items: center;
+                width: fit-content;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    border: 2px solid $paginationActive;
+                }
+            }
+            &:checked {
+                & + label::after {
+                    content: "";
+                    position: absolute;
+                    left: 6px;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: $paginationActive;
+                }
+            }
+        }
+    }
+}
+.res {
+    &_img {
+        width: 100%;
+        display: block;
+        margin-bottom: 2rem;
+    }
+    &_content {
+        padding: 25px;
+        border: 1px solid #4e2bac;
+        border-radius: 10px;
+        margin-top: 2rem;
+        > div {
+            &:not(:last-child) {
+                margin-bottom: 1rem;
+            }
+            gap: 1rem;
+            img {
+                width: 1rem;
+                object-fit: contain;
+            }
+        }
+    }
+}
+.errorMessage {
+    color: red;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 5px;
+}
+.ml-2 {
+    margin-left: 10px;
+}
+.flex {
+    display: flex;
+}
+.grid {
+    display: grid;
+}
+.gap {
+    &-4 {
+        gap: 1rem;
+    }
+}
+.btn {
+    width: 100%;
+
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: $paginationActive;
+    color: #fff;
+    cursor: pointer;
+    &:disabled {
+        cursor: default;
+        background: $buttonColor;
+        color: $selectColor;
+    }
+}
